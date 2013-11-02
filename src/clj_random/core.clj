@@ -136,6 +136,12 @@
     (.nextBytes *RNG* b)
     b))
 
+(defn =byte-array
+  "Test if the contents of 2 byte arrays are identical (for comparing seeds)."
+  [ba1 ba2]
+  (reduce #(and %1 %2)
+          (map = (seq ba1) (seq ba2))))
+
 (defmacro with-rng
   "Use a specific RNG with all lrand calls within the body."
   [my-rng & body]
