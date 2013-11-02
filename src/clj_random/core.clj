@@ -5,7 +5,7 @@
 
 (def #^:dynamic *seed-length* 
   {:java 8
-   :cellularautomaton 8
+   :cellularautomaton 4
    :mersennetwister 16
    :aescounter 16
    :xorshift 20
@@ -96,7 +96,7 @@
   [coll]
   (nth coll (lrand-int (count coll))))
 
-(defn lrand-shuffle
+(defn lshuffle
   "Return a random permutation of coll (Adapted from clojure.core)"
   {:static true}
   [^java.util.Collection coll]
