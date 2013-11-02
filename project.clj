@@ -1,4 +1,4 @@
-(defproject clj-random "0.1.2"
+(defproject clj-random "0.1.3"
   :description "A library for random number generators in Clojure."
   :url "https://github.com/kephale/clj-random"
   :license {:name "Eclipse Public License"

@@ -129,6 +129,13 @@
     (java.util.Collections/shuffle al *RNG*)
     (clojure.lang.RT/vector (.toArray al))))
 
+(defn lrand-bytes
+  "Return a random byte array."
+  [n]
+  (let [b (byte-array n)]
+    (.nextBytes *RNG* b)
+    b))
+
 (defmacro with-rng
   "Use a specific RNG with all lrand calls within the body."
   [my-rng & body]
