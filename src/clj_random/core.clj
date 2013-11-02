@@ -14,27 +14,42 @@
 (def #^:dynamic *seed-generator*
   (DefaultSeedGenerator/getInstance))
 
+(defn generate-java-seed
+  "Generate a seed for the default Java RNG."
+  []
+  (.generateSeed *seed-generator* (:java *seed-length*)))
+
 (defn make-java-rng
   "Make the default Java RNG."
   ([]
-    (make-java-rng (.generateSeed *seed-generator* (:java *seed-length*))))
+    (make-java-rng (generate-java-seed)))
   ([seed]
     (JavaRNG. seed))) 
     
 (def #^:dynamic *RNG*
   (make-java-rng))
 
+(defn generate-mersenne-seed
+  "Generate a seed for the Mersenne-Twister RNG."
+  []
+  (.generateSeed *seed-generator* (:mersennetwister *seed-length*)))
+
 (defn make-mersennetwister-rng
   "Make a Mersenne-Twister RNG."
   ([]
-    (make-mersennetwister-rng (.generateSeed *seed-generator* (:mersennetwister *seed-length*))))
+    (make-mersennetwister-rng (generate-mersenne-seed)))
   ([seed]
     (MersenneTwisterRNG. seed)))
 
+(defn generate-cellularautomaton-seed
+  "Generate a seed for the cellular automaton RNG."
+  []
+  (.generateSeed *seed-generator* (:cellularautomaton *seed-length*)))
+
 (defn make-cellularautomaton-rng
-  "Make a Cellulat Automaton RNG."
+  "Make a Cellular Automaton RNG."
   ([]
-    (make-cellularautomaton-rng (.generateSeed *seed-generator* (:cellularautomaton *seed-length*))))
+    (make-cellularautomaton-rng (generate-cellularautomaton-seed)))
   ([seed]
     (CellularAutomatonRNG. seed)))
 
@@ -46,17 +61,27 @@
   ([seed]
     (CMWC4096RNG. seed)))
 
+(defn generate-aescounter-seed
+  "Generate a seed for the AES counter RNG."
+  []
+  (.generateSeed *seed-generator* (:aescounter *seed-length*)))
+
 (defn make-aescounter-rng
   "Make an AES block cipher counter into a RNG. Nonlinear"
   ([]
-    (make-aescounter-rng (.generateSeed *seed-generator* (:aescounter *seed-length*))))
+    (make-aescounter-rng (generate-aescounter-seed)))
   ([seed]
     (AESCounterRNG. seed)))
+
+(defn generate-xorshift-seed
+  "Generate a seed for the XOR shift RNG."
+  []
+  (.generateSeed *seed-generator* (:xorshift *seed-length*)))
 
 (defn make-xorshift-rng
   "Make a XOR shift RNG (fast)."
   ([]
-    (make-xorshift-rng (.generateSeed *seed-generator* (:xorshift *seed-length*))))
+    (make-xorshift-rng (generate-xorshift-seed)))
   ([seed]
     (XORShiftRNG. seed)))
 
