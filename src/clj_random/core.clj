@@ -29,7 +29,7 @@
 (def #^:dynamic *RNG*
   (make-java-rng))
 
-(defn generate-mersenne-seed
+(defn generate-mersennetwister-seed
   "Generate a seed for the Mersenne-Twister RNG."
   []
   (.generateSeed *seed-generator* (:mersennetwister *seed-length*)))
@@ -37,7 +37,7 @@
 (defn make-mersennetwister-rng
   "Make a Mersenne-Twister RNG."
   ([]
-    (make-mersennetwister-rng (generate-mersenne-seed)))
+    (make-mersennetwister-rng (generate-mersennetwister-seed)))
   ([seed]
     (MersenneTwisterRNG. seed)))
 
