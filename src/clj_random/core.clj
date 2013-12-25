@@ -92,7 +92,7 @@
           (map str (seq seed))))      
 
 (defn lrand
-  "A local random double in [0,n], where n is 1 if no arguments are specified."
+  "A local random double in [0,n), where n is 1 if no arguments are specified."
   ([]
     (lrand 1.0))
   ([n]
@@ -102,7 +102,7 @@
       (+ (* w (.nextDouble *RNG*)) min))))
 
 (defn lrand-int
-  "A local random int (actually a long) in [0,n]."
+  "A local random int (actually a long) in [0,n)."
   [n]
   (.nextInt *RNG* n))
 
