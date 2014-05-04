@@ -1,7 +1,8 @@
 (ns clj-random.core
-  (:import [org.uncommons.maths.random 
+  (:import [java.util Random]
+           [org.uncommons.maths.random 
             JavaRNG MersenneTwisterRNG CellularAutomatonRNG CMWC4096RNG AESCounterRNG XORShiftRNG
-            DefaultSeedGenerator]))
+            DefaultSeedGenerator SeedGenerator]))
 
 (def #^:dynamic *seed-length* 
   {:java 8
@@ -17,7 +18,7 @@
 (defn generate-java-seed
   "Generate a seed for the default Java RNG."
   []
-  (.generateSeed *seed-generator* (:java *seed-length*)))
+  (.generateSeed ^SeedGenerator *seed-generator* (:java *seed-length*)))
 
 (defn make-java-rng
   "Make the default Java RNG."
@@ -96,25 +97,25 @@
   ([]
     (lrand 1.0))
   ([n]
-    (* n (.nextDouble *RNG*)))
+    (* n (.nextDouble ^Random *RNG*)))
   ([min max]
     (let [w (- max min)]
-      (+ (* w (.nextDouble *RNG*)) min))))
+      (+ (* w (.nextDouble ^Random *RNG*)) min))))
 
 (defn lrand-int
   "A local random int (actually a long) in [0,n)."
   [n]
-  (.nextInt *RNG* n))
+  (.nextInt ^Random *RNG* n))
 
 (defn lrand-long
   "A local random long."
   []
-  (.nextLong *RNG*))
+  (.nextLong ^Random *RNG*))
 
 (defn lrand-gaussian
   "A local random gaussian."
   []
-  (.nextGaussian *RNG*))
+  (.nextGaussian ^Random *RNG*))
 
 (defn lrand-nth
   "Return a random element of a sequence."
@@ -133,7 +134,7 @@
   "Return a random byte array."
   [n]
   (let [b (byte-array n)]
-    (.nextBytes *RNG* b)
+    (.nextBytes ^Random *RNG* b)
     b))
 
 (defn =byte-array
