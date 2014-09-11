@@ -40,7 +40,7 @@
   ([]
     (make-mersennetwister-rng (generate-mersennetwister-seed)))
   ([seed]
-    (MersenneTwisterRNG. seed)))
+    (MersenneTwisterRNG. ^bytes seed)))
 
 (defn generate-cellularautomaton-seed
   "Generate a seed for the cellular automaton RNG."
@@ -52,7 +52,7 @@
   ([]
     (make-cellularautomaton-rng (generate-cellularautomaton-seed)))
   ([seed]
-    (CellularAutomatonRNG. seed)))
+    (CellularAutomatonRNG. ^bytes  seed)))
 
 ;; Requires 16KB of seed data
 #_(defn make-cmwc4096-rng
@@ -72,7 +72,7 @@
   ([]
     (make-aescounter-rng (generate-aescounter-seed)))
   ([seed]
-    (AESCounterRNG. seed)))
+    (AESCounterRNG. ^bytes  seed)))
 
 (defn generate-xorshift-seed
   "Generate a seed for the XOR shift RNG."
@@ -84,7 +84,7 @@
   ([]
     (make-xorshift-rng (generate-xorshift-seed)))
   ([seed]
-    (XORShiftRNG. seed)))
+    (XORShiftRNG. ^bytes  seed)))
 
 (defn seed-to-string
   "Convert a byte-array seed into a string."
